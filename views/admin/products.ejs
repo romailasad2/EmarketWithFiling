@@ -1,0 +1,46 @@
+<%- include('../partials/header.ejs') %>
+
+
+<body>
+
+    <%- include('../partials/navigation.ejs')%>
+
+    <main>
+       
+        <%if(hasProducts){%>
+            <h1>Admin Products</h1>
+            <h3>List of all the products...</h3>
+            
+            <div class="grid">
+                <%for(let product of prods){%>
+                <article class="card product-item">
+                    <header class="card__header">
+                        <h1 class="product__title"><%=product.title%></h1>
+                    </header>
+                    <div class="card__image">
+                        <img src="<%=product.imageURL%>" alt="A Book">
+                    </div>
+                    <div class="card__content">
+                        <h2 class="product__price">$<%=product.price%></h2>
+                        <p class="product__description"><%=product.description%></p>
+                    </div>
+                    <div class="card__actions">
+                        <a href="/admin/edit-product/<%=product.id%>?edit=true" class="btn">Edit</a>
+                        <form action="/admin/delete-product" method="POST">
+                            <input type="hidden" value="<%=product.id%>" name="productID">
+                            <button type="submit" class="btn">Delete</button>
+                        </form>
+                    </div>
+                </article>
+                <%}%>
+            </div>
+            
+        <%}else{%>
+            <h2>No products...</h2>
+        <%}%>
+       
+        
+        
+    </main>
+    
+<%- include('../partials/footer.ejs') %>

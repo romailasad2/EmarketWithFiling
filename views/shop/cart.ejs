@@ -1,0 +1,49 @@
+<%- include('../partials/header.ejs') %>
+
+
+<body>
+
+    <%- include('../partials/navigation.ejs')%>
+
+    <main>
+       
+        <%if(prods.length>0){%>
+            <h1>Cart Products</h1>
+            <h3>List of all the products...</h3>
+            
+            <div class="grid">
+                <%for(let prod of prods){%>
+                <article class="card product-item">
+                    <header class="card__header">
+                        <h1 class="product__title"><%=prod.productData.title%></h1>
+                    </header>
+                    <div class="card__image">
+                        <img src="<%=prod.productData.imageURL%>" alt="A Book">
+                    </div>
+                    <div class="card__content">
+                        <h2 class="product__price">$<%=prod.productData.price%></h2>
+                        <p class="product__description"><%=prod.productData.description%></p>
+                    </div>
+                    <div class="card__actions">
+                        <a href="/products/<%=product.id%>" class="btn">Details</a>
+                        <form action="/delete-cart" method="POST">
+                            <button class="btn">Drop</button>
+                            <input type="hidden" name="productID" value="<%=prod.productData.id%>" >
+                        </form>
+                        <form action="/quantity-cart" method="POST">
+                            <h1 >Quantity: <%=prod.qty%> <button class="btn" style="border-radius: 25px;" name="sign" value="-">-</button><button class="btn" style="border-radius: 100px;" name="sign" value="+">+</button> </h1>
+                            <input type="hidden" name="productID" value="<%=prod.productData.id%>" >
+                        </form>
+                    </div>
+                </article>
+                <%}%>
+            </div>
+        <%}else{%>
+            <h2>No products...</h2>
+        <%}%>
+       
+        
+        
+    </main>
+    
+<%- include('../partials/footer.ejs') %>
