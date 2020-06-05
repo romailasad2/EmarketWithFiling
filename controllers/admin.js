@@ -45,8 +45,14 @@ exports.postAddProduct = (req, res, next) => {
     const description = req.body.description;
 
     const product = new Products(null, title, imageURL, price, description);
-    product.save();
-    res.redirect("/")
+    product.save()
+    .then(() => {
+        res.redirect("/");
+    })
+    .catch(err => {
+        console.log(err);
+    });
+
 };
 
 exports.postDeleteProduct = (req, res, next) => {
