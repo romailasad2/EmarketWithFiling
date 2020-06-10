@@ -12,17 +12,18 @@
             <h3>List of all the products...</h3>
             
             <div class="grid">
-                <%for(let prod of prods){%>
+                <%prods.forEach(prod => {%>
+                    <%prod.products.forEach(product => {%>
                 <article class="card product-item">
                     <header class="card__header">
-                        <h1 class="product__title"><%=prod.title%></h1>
+                        <h1 class="product__title"><%=product.title%></h1>
                     </header>
                     <div class="card__image">
-                        <img src="<%=prod.imageURL%>" alt="A Book">
+                        <img src="<%=product.imageURL%>" alt="A Book">
                     </div>
                     <div class="card__content">
-                        <h2 class="product__price">$<%=prod.price%></h2>
-                        <p class="product__description"><%=prod.description%></p>
+                        <h2 class="product__price">$<%=product.price%></h2>
+                        <p class="product__description"><%=product.description%></p>
                     </div>
                     <div class="card__actions">
                         <a href="/products/<%=prod.id%>" class="btn">Details</a>
@@ -31,15 +32,12 @@
                             <input type="hidden" name="productID" value="<%=prod.id%>" >
                         </form>
                         <form action="/quantity-cart" method="POST">
-                            <h1 >Quantity: <%=prod.cartItem.qty%> <button class="btn" style="border-radius: 25px;" name="sign" value="-">-</button><button class="btn" style="border-radius: 100px;" name="sign" value="+">+</button> </h1>
-                            <input type="hidden" name="productID" value="<%=prod.id%>" >
-                        </form>
-                        <form action="/create-order" method="POST">
-                        <button type="submit" class="btn">Let's Order</button>
+                            <h1 >Quantity: <%=product.orderItem.qty%> </h1>
                         </form>
                     </div>
                 </article>
-                <%}%>
+                <%})%>
+                <%})%>
             </div>
         <%}else{%>
             <h2>No products...</h2>
@@ -50,3 +48,4 @@
     </main>
     
 <%- include('../partials/footer.ejs') %>
+
